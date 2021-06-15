@@ -1,11 +1,10 @@
-
 """
 MAP Client Plugin Step
 """
 import os
 import json
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 from mapclient.mountpoints.workflowstep import WorkflowStepMountPoint
 from mapclientplugins.guccionecuberesultstoplotstep.configuredialog import ConfigureDialog
@@ -19,10 +18,10 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
 
     def __init__(self, location):
         super(GuccioneCubeResultstoPlotStep, self).__init__('Guccione Cube Results to Plot', location)
-        self._configured = False # A step cannot be executed until it has been configured.
+        self._configured = False  # A step cannot be executed until it has been configured.
         self._category = 'Utility'
         # Add any other initialisation code here:
-        self._icon =  QtGui.QImage(':/guccionecuberesultstoplotstep/images/utility.png')
+        self._icon = QtGui.QImage(':/guccionecuberesultstoplotstep/images/utility.png')
         # Ports:
         self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
@@ -31,12 +30,11 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#plot_datasets'))
         # Port data:
-        self._portData0 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#directory_location
-        self._portData1 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#plot_datasets
+        self._portData0 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#directory_location
+        self._portData1 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#plot_datasets
         # Config:
         self._config = {}
         self._config['identifier'] = ''
-
 
     def execute(self):
         """
@@ -76,7 +74,7 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
         :param index: Index of the port to return.
         :param dataIn: The data to set for the port at the given index.
         """
-        self._portData0 = dataIn # http://physiomeproject.org/workflow/1.0/rdf-schema#directory_location
+        self._portData0 = dataIn  # http://physiomeproject.org/workflow/1.0/rdf-schema#directory_location
 
     def getPortData(self, index):
         """
@@ -86,7 +84,7 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
 
         :param index: Index of the port to return.
         """
-        return self._portData1 # http://physiomeproject.org/workflow/1.0/rdf-schema#plot_datasets
+        return self._portData1  # http://physiomeproject.org/workflow/1.0/rdf-schema#plot_datasets
 
     def configure(self):
         """
@@ -96,7 +94,7 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
         then set:
             self._configured = True
         """
-        dlg = ConfigureDialog(QtGui.QApplication.activeWindow().currentWidget())
+        dlg = ConfigureDialog(self._main_window)
         dlg.identifierOccursCount = self._identifierOccursCount
         dlg.setConfig(self._config)
         dlg.validate()
@@ -140,5 +138,3 @@ class GuccioneCubeResultstoPlotStep(WorkflowStepMountPoint):
         d.identifierOccursCount = self._identifierOccursCount
         d.setConfig(self._config)
         self._configured = d.validate()
-
-
