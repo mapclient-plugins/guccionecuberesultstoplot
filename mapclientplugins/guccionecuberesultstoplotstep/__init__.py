@@ -2,7 +2,7 @@
 MAP Client Plugin
 """
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __author__ = 'Hugh Sorby'
 __stepname__ = 'Guccione Cube Results to Plot'
 __location__ = 'https://github.com/mapclient-plugins/guccionecuberesultstoplot/archive/v0.1.0.zip'
